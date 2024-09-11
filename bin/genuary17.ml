@@ -41,7 +41,30 @@ let generate_cross (x : int) (y : int) (_r1 : int) (_r2 : int) (sides : int) (a 
   let mixed = List.concat (List.map2 (fun a b -> [b ; a]) s1s2 s3) in
   Primitives.Polygon (mixed, col)
 
-let tick t s fb _i =
+let generate_filled_star (x : int) (y : int) (r1 : int) (r2 : int) (sides : int) (a : float) (_col : int) =
+  let col = 111 in
+  let s1 = generate_poly x y r1 sides a col |> poly_points in
+  let s2 = generate_poly x y r2 sides (a +. ((Float.pi *. 2.) /. ((Float.of_int sides) *. 2.))) col |> poly_points in
+  let mixed = List.concat (List.map2 (fun a b -> [b ; a]) s1 s2) in
+  Primitives.FilledPolygon (mixed, col)
+
+let generate_filled_cross (x : int) (y : int) (_r1 : int) (_r2 : int) (sides : int) (a : float) (_col : int) =
+  let col = 16 in
+  let s1 = generate_poly x y 131 sides a col |> poly_points in
+  let s2 = generate_poly x y 56 sides (a +. ((Float.pi *. 2.) /. ((Float.of_int sides) *. 2.))) col |> poly_points in
+  let s1s2 = List.concat (List.map2 (fun a b -> [b ; a]) s1 s2) in
+  let s3 = generate_poly x y 101 (sides * 2) (a +. ((Float.pi *. 2.) /. ((Float.of_int sides) *. 4.))) col |> poly_points in
+  let mixed = List.concat (List.map2 (fun a b -> [b ; a]) s1s2 s3) in
+  Primitives.FilledPolygon (mixed, col)
+
+let tick t s fb i =
+  let notshow1 = Base.KeyCodeSet.exists (fun x -> x == 0x00000031) i in
+
+  let gen_star, gen_cross = match notshow1 with
+  | false -> generate_star, generate_cross
+  | true -> generate_filled_star, generate_filled_cross
+  in
+
   let width, height = Screen.dimensions s in
   let ft = Float.of_int t in
   let col = (Palette.size (Screen.palette s)) - 1 in
@@ -49,15 +72,16 @@ let tick t s fb _i =
   let inner_radius = 100
   and outer_radius = 131 in
   let tscale = 100. in
-  Framebuffer.shader_inplace (fun p ->
-  match p with
-  | _ -> 0
+  Framebuffer.shader_inplace (fun _ ->
+    match notshow1 with
+  | false -> 0
+  | true -> if ((sin (ft /. tscale)) >= 0.) then 16 else 111
   ) fb;
 
   (match (sin (ft /. tscale)) >= 0. with
   | true -> List.concat (List.init 3 (fun i ->
     List.init 3 (fun j ->
-      generate_star
+      gen_star
         ((i * outer_radius * 2) + ((width / 2) - (outer_radius * 2)))
         ((j * outer_radius * 2) + ((height / 2) - (outer_radius * 2)))
         inner_radius
@@ -69,7 +93,7 @@ let tick t s fb _i =
   ))
   | false -> List.concat (List.init 4 (fun i ->
       List.init 3 (fun j ->
-        generate_cross
+        gen_cross
           ((i * outer_radius * 2) + ((width / 2) - (outer_radius * 2)) - outer_radius)
           ((j * outer_radius * 2) + ((height / 2) - (outer_radius * 2)) + outer_radius)
           outer_radius
