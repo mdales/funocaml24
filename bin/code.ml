@@ -243,9 +243,9 @@ let generate_slide filename initial_offset =
   and ext = Fpath.get_ext fname in
 
   let splitter = match ext with
-  | ".ml" -> ocaml_splitter
+  | ".ml" | ".mli" -> ocaml_splitter
   | ".lua" -> lua_splitter
-  | _ -> lua_splitter
+  | _ -> ocaml_splitter
   in
 
 

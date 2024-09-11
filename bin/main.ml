@@ -2,6 +2,7 @@ open Claudius
 
 let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t -> Framebuffer.t -> Base.KeyCodeSet.t -> Framebuffer.t)) * string option) list = [
 
+  (Code.generate_slide "../claudius/claudius/primitives.mli" 0, None);
   (Title.slide, None);
 
 
