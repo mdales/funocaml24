@@ -2,7 +2,6 @@ open Claudius
 
 let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t -> Framebuffer.t -> Base.KeyCodeSet.t -> Framebuffer.t)) * string option) list = [
 
-  (Code.generate_slide "../claudius/claudius/primitives.mli" 0, None);
   (Title.slide, None);
 
 
@@ -119,7 +118,14 @@ let master_tick t s _prev i =
   let final = Framebuffer.shader (fun p -> p + paloff) rendered in
   (match overlay with
   | None -> ()
-  | Some prose -> ignore (Textslide.draw_string 50 50 overlay_font prose 12 final));
+  | Some prose -> (
+    for x = -1 to 1 do
+      for y = -1 to 1 do
+        ignore (Textslide.draw_string (50 + x) (50 + y) overlay_font prose 0 final)
+      done
+    done;
+    ignore (Textslide.draw_string 50 50 overlay_font prose 1 final))
+  );
 
   let nowt = Unix.gettimeofday () in
   counter := (!counter) +. (nowt -. !prevt);
