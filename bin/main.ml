@@ -47,7 +47,6 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
 
   (Scrollerslide.generate_slide "Summary", None);
   (Textslide.generate_slide Textslide.summary_slide, None);
-  (Credits.slide, None);
 ]
 
 let overlay_font = Result.get_ok (

@@ -1,8 +1,10 @@
 open Claudius
 
 let prompts = [
-  "lauriej";
+  "fun ocaml";
+  "avsm";
   "pferris";
+  "lauriej";
   "dave84";
   "catnip";
   "aldroid";
@@ -14,7 +16,6 @@ let prompts = [
   "glasgowdave";
   "lovebyte";
   "field-fx";
-  "fun ocaml";
 ]
 
 let boot s = Framebuffer.init (Screen.dimensions s) (fun _ _ -> 10)

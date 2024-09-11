@@ -1,14 +1,6 @@
 open Claudius
 open Bdfparser
 
-let opening = [
-  "Learning OCaml with Tiny Code Christmas & Genuary";
-  "Fun OCaml 2024";
-  "";
-  "Michael Dales";
-  "@michael@mynameismwd.org";
-]
-
 let claudius_slide = [
   "Claudius overview";
   "Functional fantasy console library";
@@ -33,21 +25,37 @@ let claudius_slide = [
   "";
 ]
 
+let credits = [|
+  "fun ocaml";
+  "avsm";
+  "pferris";
+  "lauriej";
+  "dave84";
+  "catnip";
+  "aldroid";
+  "enfys";
+  "nickludlam";
+  "jonathanhogg";
+  "genuary.art";
+  "glasgowdave";
+  "lovebyte";
+  "field-fx";
+|]
+
 let summary_slide = [
   "Summary";
-  "Increments";
+  "Good";
   "* Tiny Code Christmas a great way to learn OCaml";
-  "** Mix of imperative and functional makes it easy to transition into";
-  "** LoveByte commuity was super supportive";
-  "** Claudius makes a reasonable framework for those trying it this year!";
+  "* Mix of imperative and functional makes it easy to transition into";
+  "* LoveByte commuity was super supportive";
+  "* Claudius makes a reasonable framework for those trying it this year!";
   "";
-  "Decrements";
+  "Less good";
   "* Should not have added imperative interface - encourages me to be lazy";
-  "* Claudius doesn't really work except as a game in my own mind";
   "";
   "Next steps";
-  "* Get ready for others for TCC24";
-  "* llama integration for audio?";
+  "* Get it into opam";
+  "* Get web page up others for TCC24";
   "";
   "Code";
   "* https://github.com/mdales/tcc23";
@@ -56,9 +64,11 @@ let summary_slide = [
   "* https://github.com/mdales/ocaml-gif";
   "";
   "Related cool stuff";
-  "https://tcc.lovebyte.party";
-  "https://twitch.tv/fieldfxdemo";
-  "https://github.com/jonathanhogg/flitter";
+  "* https://tcc.lovebyte.party";
+  "* https://twitch.tv/fieldfxdemo";
+  "* https://github.com/jonathanhogg/flitter";
+  "";
+  "Thanks:";
 ]
 
 let palette =  Palette.load_tic80_palette "000:1a1c2c5d275db13e53ef7d57ffcd75a7f07038b76425717929366f3b5dc941a6f673eff7f4f4f494b0c2566c86333c57"
@@ -131,7 +141,7 @@ let boot s =
   offset := 0;
   Framebuffer.init (Screen.dimensions s) (fun _x _y ->  15)
 
-let tick title_font body_font prose _t s _fb i =
+let tick title_font body_font prose t s _fb i =
 
   let i_list = Base.KeyCodeSet.to_list i in
   let updated_offset = match !debounce, i_list with
@@ -148,30 +158,34 @@ let tick title_font body_font prose _t s _fb i =
 
   let palsize = Palette.size (Screen.palette s) in
 
-  let step = h / palsize in
-  for i = 0 to palsize do
-    Framebuffer.filled_rect (w - 16) (step * i) 16 step (palsize - (i + 1)) fb
-  done;
 
+
+  let inset = 5 in
   List.iteri (fun i s ->
 
     let font = match i with
     | 0 -> title_font
     | _ -> body_font in
 
-    let inset = 5 in
+    if ((String.compare s "Thanks:") == 0) then (
+      (* let ft = float_of_int (t mod 240) in
+      let tscale = 240. in*)
+      let s = credits.((t / 240) mod (Array.length credits))
+      and col = (((t / 30) mod 8) + 0)  in
+      ignore(draw_string
+        (* (inset + 320 + 60 + (int_of_float (320. *. ((cos (Float.pi *. 1.8 *. (ft /. tscale)))))))*)
+        65
+        ((i + 1 - !offset) * 17) title_font s col fb)
+    );
 
-    let trimmed = String.trim s in
-    let comment = ((String.starts_with ~prefix:"(*" trimmed ) && (String.ends_with ~suffix:"*)" trimmed )) ||
-      (String.starts_with ~prefix:"--" trimmed) in
-
-    let col = match comment with
-    | false -> 12
-    | true -> 13
-    in
-    ignore(draw_string inset ((i + 1 - !offset) * 17) font s  col fb)
+    ignore(draw_string inset ((i + 1 - !offset) * 17) font s 12 fb)
 
   ) prose;
+
+  let step = h / palsize in
+  for i = 0 to palsize do
+    Framebuffer.filled_rect (w - 16) (step * i) 16 step (palsize - (i + 1)) fb
+  done;
 
   fb
 
