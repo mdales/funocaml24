@@ -114,26 +114,29 @@ let colour_parts p =
   | Seperator c -> (Printf.sprintf "%c" c, 12)
 ) p
 
+let process_atom keywords w =
+  match List.exists (fun k -> String.compare k w == 0) keywords with
+  | true -> Keyword w
+  | false -> (
+    match int_of_string_opt w with
+    | None -> (
+      match float_of_string_opt w with
+      | None -> Misc w
+      | Some _ -> Number w
+    )
+    | Some _ -> Number w
+  )
+
 let rec ksplitter prose keywords start =
-  let n = String.find ~start (fun c ->  match String.find (fun t -> t == c) " ;,()*+-/%"  with None -> false | Some _ -> true) prose in
+  let n = String.find ~start (fun c ->  match String.find (fun t -> t == c) " ;,()*+-/%=[]"  with None -> false | Some _ -> true) prose in
   match n with
-  | None -> [Misc (String.Sub.to_string (String.sub ~start prose))]
+  | None -> [process_atom keywords (String.Sub.to_string (String.sub ~start prose))]
   | Some idx -> (
     match idx with
     | 0 -> Seperator (String.get prose idx) :: ksplitter prose keywords (idx + 1)
     | _ -> (if idx != start then [(
       let w = (String.Sub.to_string (String.sub ~start ~stop:idx prose)) in
-      match List.exists (fun k -> String.compare k w == 0) keywords with
-      | true -> Keyword w
-      | false -> (
-        match int_of_string_opt w with
-        | None -> (
-          match float_of_string_opt w with
-          | None -> Misc w
-          | Some _ -> Number w
-        )
-        | Some _ -> Number w
-      )
+      process_atom keywords w
       )] else []) @ [Seperator (String.get prose idx)] @ ksplitter prose keywords (idx + 1)
   )
 
