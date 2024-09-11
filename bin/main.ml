@@ -6,7 +6,7 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
 
 
   (Scrollerslide.generate_slide "TIC-80 and friends", None);
-  (Image.generate_slide "examples/funocaml/resources/smalldemo.gif", None);
+  (Image.generate_slide "resources/smalldemo.gif", None);
 
   (Quote.generate_slide Quote.wells_quote, None);
 
@@ -27,8 +27,8 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
   (Code.generate_slide "../tcc23/day8extra/bin/main.ml" 81, None);
 
 
-  (Image.generate_slide "examples/funocaml/resources/flitter.gif", None);
-  (Image.generate_slide "examples/funocaml/resources/claudius.gif", None);
+  (Image.generate_slide "resources/flitter.gif", None);
+  (Image.generate_slide "resources/claudius.gif", None);
   (Scrollerslide.generate_slide "Genuary 2024", None);
   (Prompts.slide, None);
   (Textslide.generate_slide Textslide.claudius_slide, None);
@@ -36,12 +36,12 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
   (Quote.generate_slide Quote.lynch_quote, None);
 
   (Genuary2.slide, Some "No Palette");
-  (Code.generate_slide "examples/day2/bin/main.ml" 0, None);
+  (Code.generate_slide "../claudius/examples/day2/bin/main.ml" 0, None);
   (Genuary1.slide, Some "Particals");
-  (Code.generate_slide "examples/day1/bin/main.ml" 100, None);
+  (Code.generate_slide "../claudius/examples/day1/bin/main.ml" 100, None);
   (Genuary6.slide, Some "Screen saver");
   (* (Textslide.generate_slide Textslide.genuary6_code_example, None);*)
-  (Code.generate_slide "claudius/primitives.mli" 0, None);
+  (Code.generate_slide "../claudius/claudius/primitives.mli" 0, None);
   (Genuary17.slide, Some "Islamic Patterns");
   (Genuary17filled.slide, Some "Islamic Patterns");
   (Genuary20.slide, Some "Generative Typography and 8x8");
