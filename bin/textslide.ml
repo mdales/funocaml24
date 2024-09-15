@@ -34,10 +34,8 @@ let credits = [|
   "catnip";
   "aldroid";
   "enfys";
-  "nickludlam";
   "jonathanhogg";
   "genuary.art";
-  "glasgowdave";
   "lovebyte";
   "field-fx";
 |]
@@ -170,11 +168,11 @@ let tick title_font body_font prose t s _fb i =
     if ((String.compare s "Thanks:") == 0) then (
       (* let ft = float_of_int (t mod 240) in
       let tscale = 240. in*)
-      let s = credits.((t / 240) mod (Array.length credits))
-      and col = (((t / 30) mod 8) + 0)  in
+      let s = credits.((t / (7 * 8)) mod (Array.length credits))
+      and col = (((t / 7) mod 8) + 0)  in
       ignore(draw_string
         (* (inset + 320 + 60 + (int_of_float (320. *. ((cos (Float.pi *. 1.8 *. (ft /. tscale)))))))*)
-        65
+        60
         ((i + 1 - !offset) * 17) title_font s col fb)
     );
 
