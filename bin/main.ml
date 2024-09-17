@@ -42,7 +42,7 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
   (Genuary6.slide, Some "Screen saver");
   (Genuary17.slide, Some "Islamic Patterns");
   (Genuary20.slide, Some "Generative Typography and 8x8");
-  (Code.generate_slide "../claudius/claudius/primitives.mli" 0, None);
+  (Code.generate_slide "../claudius/src/primitives.mli" 0, None);
   (Genuary16.slide, Some "Use a physics engine");
 
   (Scrollerslide.generate_slide "Summary", None);
