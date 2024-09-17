@@ -24,7 +24,7 @@ let tick t s _p _i =
   done;
 
   let font = Option.get (Screen.font s) in
-  ignore(Framebuffer.draw_string (max 10 (680 - (t * 10))) 10 font "Learning OCaml with Tiny Code Christmas & Genuary" 1 buffer);
+  ignore(Framebuffer.draw_string (max 10 (680 - (t * 10))) 10 font "Learning OCaml with Tiny Code Christmas" 1 buffer);
   ignore(Framebuffer.draw_string (max 10 (780 - (t * 10))) 30 font "Fun OCaml 2024" 1 buffer);
   ignore(Framebuffer.draw_string (max 10 (880 - (t * 10))) 70 font "Michael Dales" 1 buffer);
   ignore(Framebuffer.draw_string (max 10 (980 - (t * 10))) 90 font "@michael@mynameismwd.org" 1 buffer);
