@@ -37,7 +37,7 @@ let draw_splots t s fb =
 let tick t s fb _i =
   draw_splots t s fb;
   let palsize = Palette.size (Screen.palette s) in
-  Framebuffer.shaderi_inplace (fun x y tfb ->
+  Framebuffer.mapi_inplace (fun x y tfb ->
     match Framebuffer.pixel_read (x + 1) y tfb with
     | None -> Random.int (palsize / 2)
     | Some v -> v

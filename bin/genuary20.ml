@@ -13,7 +13,7 @@ let tick t s fb _i =
   let xoff = (w - 200) / 2
   and yoff = (h - 200) / 2 in
   let special = ((t mod 200) != 0) in
-  Framebuffer.shader_inplace (fun p ->
+  Framebuffer.map_inplace (fun p ->
     match p with
     | 0 -> 0
     | 254 -> 254

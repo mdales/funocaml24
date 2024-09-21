@@ -72,7 +72,7 @@ let tick t s fb i =
   let inner_radius = 100
   and outer_radius = 131 in
   let tscale = 100. in
-  Framebuffer.shader_inplace (fun _ ->
+  Framebuffer.map_inplace (fun _ ->
     match notshow1 with
   | false -> 0
   | true -> if ((sin (ft /. tscale)) >= 0.) then 16 else 111

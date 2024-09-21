@@ -1,10 +1,10 @@
 open Claudius
 
-let tick t s _p _i =
+let tick t s buffer _i =
   Random.init 42;
-  let w, h = Screen.dimensions s in
+  let w, _ = Screen.dimensions s in
   let ft = (Float.of_int t) *. 0.02 in
-  let buffer = Framebuffer.init (w, h) (fun _x _y -> 0) in
+  Framebuffer.map_inplace (fun _p -> 0) buffer;
 
   for z = 0 to 76 do
     let fz =  (Float.of_int z) *. 8. in

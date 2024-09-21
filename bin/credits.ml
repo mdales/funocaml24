@@ -22,7 +22,7 @@ let boot s = Framebuffer.init (Screen.dimensions s) (fun _ _ -> 10)
 
 let tick t s prev _i =
   let w, h = Screen.dimensions s in
-  let buffer = Framebuffer.shader (fun pixel ->
+  let buffer = Framebuffer.map (fun pixel ->
     if (pixel < 32) then pixel else (pixel - 1)
   ) prev in
 

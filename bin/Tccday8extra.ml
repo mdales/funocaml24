@@ -11,7 +11,7 @@ let boot (screen : Screen.t) : Framebuffer.t =
   buffer
 
 let tick (t : int) (screen : Screen.t) (prev : Framebuffer.t) (_inputs : Base.KeyCodeSet.t) : Framebuffer.t =
-  let buffer = Framebuffer.shader (fun pixel ->
+  let buffer = Framebuffer.map (fun pixel ->
     match pixel with
     | 0 | 1 -> pixel
     | _ -> (pixel - 1)

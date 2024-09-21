@@ -75,7 +75,7 @@ let master_boot s =
   let paloff = (List.nth offsets !slide_index) in
   (match boot with
   | None -> Framebuffer.init (Screen.dimensions s) (fun _x _y -> 0)
-  | Some b -> b s ) |> Framebuffer.shader (fun p -> p + paloff)
+  | Some b -> b s ) |> Framebuffer.map (fun p -> p + paloff)
 
 let counter = ref 1.0
 let last_fps = ref 0.0
@@ -112,7 +112,7 @@ let master_tick t s _prev i =
   in
   let rendered = tick (t - !toffset) childscreen fb i in
   in_colour_space_prev := rendered;
-  let final = Framebuffer.shader (fun p -> p + paloff) rendered in
+  let final = Framebuffer.map (fun p -> p + paloff) rendered in
   (match overlay with
   | None -> ()
   | Some prose -> (
