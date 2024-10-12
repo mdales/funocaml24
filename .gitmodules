@@ -1,0 +1,9 @@
+[submodule "thirdparty/tamzen-font"]
+	path = thirdparty/tamzen-font
+	url = https://github.com/sunaku/tamzen-font.git
+[submodule "thirdparty/classic-mac-fonts"]
+	path = thirdparty/classic-mac-fonts
+	url = https://github.com/jcs/classic-mac-fonts.git
+[submodule "thirdparty/chicago-bdf"]
+	path = thirdparty/chicago-bdf
+	url = https://github.com/danfe/fonts.git

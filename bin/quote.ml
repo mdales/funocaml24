@@ -11,10 +11,10 @@ let lynch_quote = (
 )
 
 let prose_font = Result.get_ok (
-  Bdfparser.Bdf.create "/Users/michael/dev/classic-mac-fonts/bdf/Geneva-24.bdf"
+  Bdfparser.Bdf.create "thirdparty/classic-mac-fonts/bdf/Geneva-24.bdf"
 )
 let author_font = Result.get_ok (
-  Bdfparser.Bdf.create "/Users/michael/dev/classic-mac-fonts/bdf/Times-14.bdf"
+  Bdfparser.Bdf.create "thirdparty/classic-mac-fonts/bdf/Times-14.bdf"
 )
 
 let tick (prose, author) t s _p _i =

@@ -189,6 +189,6 @@ let tick title_font body_font prose t s _fb i =
   fb
 
 let generate_slide prose =
-  let body_font = Result.get_ok (Bdf.create "/Users/michael/Dev/classic-mac-fonts/bdf/Courier-12.bdf")
-  and title_font = Result.get_ok (Bdf.create "/Users/michael/Dev/chicago-bdf/Chicago-12.bdf") in
+  let body_font = Result.get_ok (Bdf.create "thirdparty/classic-mac-fonts/bdf/Courier-12.bdf")
+  and title_font = Result.get_ok (Bdf.create "thirdparty/chicago-bdf/Chicago-12.bdf") in
   (palette, Some boot, tick title_font body_font prose)

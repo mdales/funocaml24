@@ -50,7 +50,7 @@ let slides: ((Palette.t * (Screen.t -> Framebuffer.t) option * (int -> Screen.t 
 ]
 
 let overlay_font = Result.get_ok (
-  Bdfparser.Bdf.create "/Users/michael/dev/classic-mac-fonts/bdf/Geneva-24.bdf"
+  Bdfparser.Bdf.create "thirdparty/classic-mac-fonts/bdf/Geneva-24.bdf"
 )
 
 let palette_offsets s =
