@@ -7,3 +7,12 @@
 [submodule "thirdparty/chicago-bdf"]
 	path = thirdparty/chicago-bdf
 	url = https://github.com/danfe/fonts.git
+[submodule "vendor/ocaml-gif"]
+	path = vendor/ocaml-gif
+	url = https://github.com/mdales/ocaml-gif
+[submodule "vendor/claudius"]
+	path = vendor/claudius
+	url = https://github.com/mdales/claudius
+[submodule "vendor/bdfparser"]
+	path = vendor/bdfparser
+	url = https://github.com/mdales/bdfparser
