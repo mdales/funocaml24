@@ -144,9 +144,9 @@ let tick title_font body_font prose t s _fb i =
 
   let i_list = Base.KeyCodeSet.to_list i in
   let updated_offset = match !debounce, i_list with
-  | [0x00000020], [] -> (!offset) + 1
-  | [0x40000051], [] -> (!offset) + 1
-  | [0x40000052], [] -> (!offset) - 1
+  | [Key.Space], [] -> (!offset) + 1
+  | [Key.Down], [] -> (!offset) + 1
+  | [Key.Up], [] -> (!offset) - 1
   | _ -> !offset
   in
   offset := updated_offset;

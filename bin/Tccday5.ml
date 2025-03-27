@@ -5,10 +5,10 @@ let vapour_palette = "000:7400b86930c35e60ce5390d94ea8de48bfe356cfe164dfdf72efdd
 let palette = Palette.load_tic80_palette vapour_palette
 
 let tick t s _p i =
-  let notshow1 = Base.KeyCodeSet.exists (fun x -> x == 0x00000031) i in
-  let notshow2 = Base.KeyCodeSet.exists (fun x -> x == 0x00000032) i in
-  let nottime1 = Base.KeyCodeSet.exists (fun x -> x == 0x00000033) i in
-  let nottime2 = Base.KeyCodeSet.exists (fun x -> x == 0x00000034) i in
+  let notshow1 = Base.KeyCodeSet.exists (fun x -> x == Key.Num1) i in
+  let notshow2 = Base.KeyCodeSet.exists (fun x -> x == Key.Num2) i in
+  let nottime1 = Base.KeyCodeSet.exists (fun x -> x == Key.Num3) i in
+  let nottime2 = Base.KeyCodeSet.exists (fun x -> x == Key.Num4) i in
 
   let ft = (float_of_int t)
   and w, h = (Screen.dimensions s)

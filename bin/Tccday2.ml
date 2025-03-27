@@ -57,7 +57,7 @@ let draw_tree x y fb =
 
 let tick t s fb i =
 
-  let show_snow = Base.KeyCodeSet.exists (fun x -> x == 0x00000031) i in
+  let show_snow = Base.KeyCodeSet.exists (fun x -> x == Key.Num1) i in
 
   let w, h = Screen.dimensions s in
   draw_background s fb;

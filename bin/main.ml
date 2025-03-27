@@ -85,8 +85,8 @@ let toffset = ref 0
 let master_tick t s _prev i =
   let i_list = Base.KeyCodeSet.to_list i in
   let updated_index = match !debounce, i_list with
-  | [0x4000004F], [] -> ((!slide_index) + 1) mod (List.length slides)
-  | [0x40000050], [] -> ((!slide_index) - 1) mod (List.length slides)
+  | [Key.Right], [] -> ((!slide_index) + 1) mod (List.length slides)
+  | [Key.Left], [] -> ((!slide_index) - 1) mod (List.length slides)
   | _ -> !slide_index
   in
   let updated_index = if updated_index < 0 then (updated_index + (List.length slides)) else updated_index in
@@ -131,7 +131,7 @@ let master_tick t s _prev i =
     last_fps := 100. /. !counter;
     counter := 0.0
   );
-  let show_fps = Base.KeyCodeSet.exists (fun x -> x == 0x00000066) i in
+  let show_fps = Base.KeyCodeSet.exists (fun x -> x == Key.F_lower) i in
   if show_fps then (
     let fpss = Printf.sprintf "%d fps" (int_of_float !last_fps) in
     ignore (Textslide.draw_string 50 450 overlay_font fpss 12 final);

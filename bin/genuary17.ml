@@ -58,7 +58,7 @@ let generate_filled_cross (x : int) (y : int) (_r1 : int) (_r2 : int) (sides : i
   Primitives.FilledPolygon (mixed, col)
 
 let tick t s fb i =
-  let notshow1 = Base.KeyCodeSet.exists (fun x -> x == 0x00000031) i in
+  let notshow1 = Base.KeyCodeSet.exists (fun x -> x == Key.Num1) i in
 
   let gen_star, gen_cross = match notshow1 with
   | false -> generate_star, generate_cross
